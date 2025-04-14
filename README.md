@@ -14,10 +14,10 @@ The platform is being built in phases, starting with a foundation that includes 
 
 ## Documentation
 
-Detailed architecture, workflows, setup instructions, and design documents are available in the [Project Wiki](https://github.com/your-org/model-view/wiki).
+Detailed architecture, workflows, setup instructions, and design documents are available in the [Project Wiki](https://github.com/Mentee-Group/model-view/wiki).
 
 ## Getting Started
 
-See the [Project Setup](https://github.com/your-org/model-view/wiki/Project-Setup) page for instructions on setting up your development environment.
+See the [Project Setup](https://github.com/Mentee-Group/model-view/wiki/Model%E2%80%90View-Project-Setup) page for instructions on setting up your development environment.
 
 ---
