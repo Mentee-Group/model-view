@@ -1,22 +1,20 @@
 import HomePage from './pages/HomePage';
 import DatasetPage from './pages/DatasetPage';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CompetitionPage from './pages/CompetitionPage';
+import LeaderboardPage from './pages/LeaderboardPage';
+import NavBar from './components/NavBar';
 
 function App() {
   return (
     <Router>
-      <nav className="bg-blue-600 p-4 text-white flex justify-between">
-        <Link to="/" className="font-bold text-lg">Model-View</Link>
-        <div className="space-x-4">
-          <Link to="/">Home</Link>
-          <Link to="/datasets">Datasets</Link>
-        </div>
-      </nav>
-
-      <div className="p-6">
+      <NavBar /> 
+      <div className="max-w-screen-xl mx-auto p-6 mt-30">
         <Routes>
           <Route path="/" element={<HomePage />} />
+          <Route path="/competitions" element={<CompetitionPage />} />
           <Route path="/datasets" element={<DatasetPage />} />
+          <Route path="/leaderboards" element={<LeaderboardPage />} />
         </Routes>
       </div>
     </Router>
