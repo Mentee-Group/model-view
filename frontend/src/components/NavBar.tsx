@@ -20,7 +20,7 @@ function NavBar() {
     <nav className={`bg-white fixed w-full pt-2 top-0 z-50 transition-shadow ${scrolled ? 'border-b border-gray-200 shadow-sm' : ''}`}>
       <div className="max-w-screen-xl mx-auto flex items-center justify-between p-4">
         <div className="flex items-center space-x-6">
-          <NavLink to="/" className="text-2xl font-bold text-gray-800">
+          <NavLink to="/" className="text-2xl font-bold text-sky-900">
             Model-View
           </NavLink>
           <NavLink
