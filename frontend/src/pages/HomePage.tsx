@@ -6,7 +6,7 @@ function HomePage() {
       <div className="flex flex-col md:flex-row items-start">
 
         <div className="md:w-1/2 md:pr-8 mt-16 mb-8 md:mb-0">
-          <h1 className="text-4xl font-bold mb-6">Model. Compete. Level Up.</h1>
+          <h1 className="text-4xl font-bold mb-6 font-roboto">Model. Compete. Level Up.</h1>
           <p className="text-lg mb-4">
             A collaborative platform where you can upload real-world datasets and compete to solve predictive modeling challenges.
           </p>
