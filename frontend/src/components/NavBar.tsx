@@ -18,7 +18,7 @@ function NavBar() {
 
   return (
     <nav className={`bg-white fixed w-full pt-2 top-0 z-50 transition-shadow ${scrolled ? 'border-b border-gray-200 shadow-sm' : ''}`}>
-      <div className="max-w-screen-xl mx-auto flex items-center justify-between p-4">
+      <div className="max-w-screen-xl mx-auto flex items-center justify-between py-4 px-6">
         <div className="flex items-center space-x-6">
           <NavLink to="/" className="text-2xl font-bold text-sky-900">
             Model-View
@@ -48,12 +48,14 @@ function NavBar() {
             Leaderboard
           </NavLink>
         </div>
-         <div className="space-x-4">
-           <button className="text-gray-600 hover:text-gray-800 cursor-pointer">Sign In</button>
-           <button className="bg-gray-800 text-white px-4 py-2 rounded hover:bg-gray-700 cursor-pointer">
-             Register
-           </button>
-         </div>
+        <div className="space-x-6">
+          <button className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded hover:bg-sky-100/70 hover:shadow-sm shadow-none transition cursor-pointer">
+            Sign In
+          </button>
+          <button className="bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transition cursor-pointer">
+            Register
+          </button>
+        </div>
       </div>
     </nav>
   );
