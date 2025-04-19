@@ -1,6 +1,6 @@
 import HomePage from './pages/HomePage';
 import DatasetPage from './pages/DatasetPage';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import CompetitionPage from './pages/CompetitionPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import NavBar from './components/NavBar';
@@ -15,6 +15,7 @@ function App() {
           <Route path="/competitions" element={<CompetitionPage />} />
           <Route path="/datasets" element={<DatasetPage />} />
           <Route path="/leaderboards" element={<LeaderboardPage />} />
+          <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
     </Router>
