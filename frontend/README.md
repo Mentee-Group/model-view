@@ -1,4 +1,4 @@
-# React Frontend
+# Model-View React Frontend
 
 This contains the React-based frontend application for the **Model-View** platform. It provides the user-facing interface for interacting with competitions, datasets, and leaderboards.
 
