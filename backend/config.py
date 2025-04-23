@@ -5,6 +5,7 @@ class Config:
     SECRET_KEY = os.environ.get('SECRET_KEY', 'dev-key-change')
     DEBUG = False
     TESTING = False
+    CORS_ORIGINS = ["http://localhost:5173"] 
 
 class DevelopmentConfig(Config):
     """Development configuration."""
@@ -18,3 +19,4 @@ class TestingConfig(Config):
 class ProductionConfig(Config):
     """Production configuration."""
     DEBUG = False
+    CORS_ORIGINS = ["https://productionfrontend.com"] # TODO : Change when have actual url.
