@@ -35,8 +35,8 @@ function DatasetPage() {
   };
 
   return (
-    <div className="max-w-screen-xl mx-auto p-6">
-      <h2 className="text-2xl font-bold mb-6">Available Datasets</h2>
+    <div className='py-8'>
+      <h2 className="text-2xl font-bold mb-12">Available Datasets</h2>
       <div>
         {datasets.map((dataset) => (
           <div
@@ -46,7 +46,7 @@ function DatasetPage() {
           >
             <div className="flex items-center justify-between px-4 py-4">
               <div className="flex items-center gap-4">
-                <div className="w-12 h-12 bg-gray-200 rounded-md"></div>
+                <div className="w-14 h-14 bg-gray-200 rounded-md"></div>
                 <div>
                   <div className="text-lg font-semibold text-gray-800">{dataset.name}</div>
                   <div className="text-sm text-gray-500">
@@ -58,7 +58,7 @@ function DatasetPage() {
                 onClick={(e) => {
                   e.stopPropagation();
                 }}
-                className="text-gray-500 hover:text-gray-700"
+                className="text-gray-500 hover:text-gray-700 cursor-pointer"
               >
                 <MoreHorizontal />
               </button>
