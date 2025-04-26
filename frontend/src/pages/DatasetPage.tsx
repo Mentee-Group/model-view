@@ -36,7 +36,7 @@ function DatasetPage() {
 
   return (
     <div className='py-8'>
-      <h2 className="text-2xl font-bold mb-12">Available Datasets</h2>
+      <h1 className="text-3xl font-bold mb-12">Available Datasets</h1>
       <div>
         {datasets.map((dataset) => (
           <div
