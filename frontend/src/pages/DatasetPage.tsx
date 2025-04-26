@@ -38,7 +38,7 @@ function DatasetPage() {
     <div className='py-8'>
       <div className='flex items-center justify-between mb-12'>
         <h1 className="text-3xl font-bold">Available Datasets</h1>
-        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 transistion space-x-2 cursor-pointer'>
+        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transistion space-x-2 cursor-pointer'>
           <Plus className='w-4 h-4' />
           <span>New Dataset</span>
         </button>
