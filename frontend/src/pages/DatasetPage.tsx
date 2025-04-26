@@ -1,4 +1,4 @@
-import { MoreHorizontal } from 'lucide-react';
+import { MoreHorizontal, Plus } from 'lucide-react';
 import { useState } from 'react';
 
 type Dataset = {
@@ -36,7 +36,13 @@ function DatasetPage() {
 
   return (
     <div className='py-8'>
-      <h2 className="text-2xl font-bold mb-12">Available Datasets</h2>
+      <div className='flex items-center justify-between mb-12'>
+        <h1 className="text-3xl font-bold">Available Datasets</h1>
+        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transistion space-x-2 cursor-pointer'>
+          <Plus className='w-4 h-4' />
+          <span>New Dataset</span>
+        </button>
+      </div>
       <div>
         {datasets.map((dataset) => (
           <div
