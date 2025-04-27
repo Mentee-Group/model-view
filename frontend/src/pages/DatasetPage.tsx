@@ -27,6 +27,13 @@ const datasets: Dataset[] = [
   },
 ];
 
+function handleMenuClick(callback: () => void) {
+  return (e: React.MouseEvent) => {
+    e.stopPropagation();
+    callback();
+  };
+}
+
 function DatasetPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -78,18 +85,28 @@ function DatasetPage() {
                   sideOffset={4}
                   className="bg-white rounded border border-gray-300 shadow-lg w-32 py-1 z-50"
                 >
-                  <DropdownMenu.Item
-                    onSelect={(e) => e.preventDefault()}
-                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  >
-                    View
+                  <DropdownMenu.Item asChild>
+                    <div
+                      onClick={handleMenuClick(() => {
+                        console.log('View clicked');
+                      })}
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      View
+                    </div>
                   </DropdownMenu.Item>
-                  <DropdownMenu.Item
-                    onSelect={(e) => e.preventDefault()}
-                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
-                  >
-                    Download
+
+                  <DropdownMenu.Item asChild>
+                    <div
+                      onClick={handleMenuClick(() => {
+                        console.log('Download clicked');
+                      })}
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      Download
+                    </div>
                   </DropdownMenu.Item>
+
                 </DropdownMenu.Content>
               </DropdownMenu.Root>
             </div>
