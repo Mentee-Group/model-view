@@ -1,5 +1,6 @@
 import { MoreHorizontal, Plus } from 'lucide-react';
 import { useState } from 'react';
+import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 
 type Dataset = {
   id: number;
@@ -26,7 +27,6 @@ const datasets: Dataset[] = [
   },
 ];
 
-
 function DatasetPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
@@ -38,21 +38,23 @@ function DatasetPage() {
     <div className='py-8'>
       <div className='flex items-center justify-between mb-12'>
         <h1 className="text-3xl font-bold">Available Datasets</h1>
-        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transistion space-x-2 cursor-pointer'>
+        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transition space-x-2 cursor-pointer'>
           <Plus className='w-4 h-4' />
           <span>New Dataset</span>
         </button>
       </div>
+
       <div>
         {datasets.map((dataset) => (
           <div
             key={dataset.id}
-            className="cursor-pointer hover:bg-gray-50 transition border-b border-gray-200 bg-white"
+            className="cursor-pointer hover:bg-gray-50 transition border-b border-gray-200 bg-white relative"
             onClick={() => toggleExpand(dataset.id)}
           >
             <div className="flex items-center justify-between px-4 py-4">
               <div className="flex items-center gap-4">
                 <div className="w-14 h-14 bg-gray-200 rounded-md"></div>
+
                 <div>
                   <div className="text-lg font-semibold text-gray-800">{dataset.name}</div>
                   <div className="text-sm text-gray-500">
@@ -60,15 +62,38 @@ function DatasetPage() {
                   </div>
                 </div>
               </div>
-              <button
-                onClick={(e) => {
-                  e.stopPropagation();
-                }}
-                className="text-gray-500 hover:text-gray-700 cursor-pointer"
-              >
-                <MoreHorizontal />
-              </button>
+
+              <DropdownMenu.Root>
+                <DropdownMenu.Trigger asChild>
+                  <button
+                    onClick={(e) => e.stopPropagation()}
+                    className="text-gray-500 hover:text-gray-700 p-2 rounded-full hover:bg-sky-100/70 transition cursor-pointer"
+                  >
+                    <MoreHorizontal />
+                  </button>
+                </DropdownMenu.Trigger>
+
+                <DropdownMenu.Content
+                  align="end"
+                  sideOffset={4}
+                  className="bg-white rounded border border-gray-300 shadow-lg w-32 py-1 z-50"
+                >
+                  <DropdownMenu.Item
+                    onSelect={(e) => e.preventDefault()}
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  >
+                    View
+                  </DropdownMenu.Item>
+                  <DropdownMenu.Item
+                    onSelect={(e) => e.preventDefault()}
+                    className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                  >
+                    Download
+                  </DropdownMenu.Item>
+                </DropdownMenu.Content>
+              </DropdownMenu.Root>
             </div>
+
             {expandedId === dataset.id && (
               <div className="px-4 pb-4 text-sm text-gray-700">{dataset.description}</div>
             )}
