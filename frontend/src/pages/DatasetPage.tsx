@@ -83,7 +83,7 @@ function DatasetPage() {
                 <DropdownMenu.Content
                   align="end"
                   sideOffset={4}
-                  className="bg-white rounded border border-gray-300 shadow-lg w-32 py-1 z-50"
+                  className="bg-white rounded border border-gray-300 shadow-lg w-32 py-1 z-50 animate-slide-down-and-fade"
                 >
                   <DropdownMenu.Item asChild>
                     <div
