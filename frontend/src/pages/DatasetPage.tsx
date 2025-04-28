@@ -1,6 +1,7 @@
 import { MoreHorizontal, Plus } from 'lucide-react';
 import { useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
+import { useNavigate } from 'react-router-dom';
 
 type Dataset = {
   id: number;
@@ -35,6 +36,7 @@ function handleMenuClick(callback: () => void) {
 }
 
 function DatasetPage() {
+  const navigate = useNavigate();
   const [expandedId, setExpandedId] = useState<number | null>(null);
 
   const toggleExpand = (id: number) => {
@@ -88,7 +90,7 @@ function DatasetPage() {
                   <DropdownMenu.Item asChild>
                     <div
                       onClick={handleMenuClick(() => {
-                        console.log('View clicked');
+                        navigate(`/datasets/${dataset.id}`);
                       })}
                       className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     >
