@@ -1,7 +1,7 @@
 import { MoreHorizontal, Plus } from 'lucide-react';
 import { useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 type Dataset = {
   id: number;
@@ -47,10 +47,13 @@ function DatasetPage() {
     <div className='py-8'>
       <div className='flex items-center justify-between mb-12'>
         <h1 className="text-3xl font-bold">Available Datasets</h1>
-        <button className='flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transition space-x-2 cursor-pointer'>
-          <Plus className='w-4 h-4' />
+        <Link
+          to="/datasets/new"
+          className="flex items-center bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transition space-x-2 cursor-pointer"
+        >
+          <Plus className="w-4 h-4" />
           <span>New Dataset</span>
-        </button>
+        </Link>
       </div>
 
       <div>

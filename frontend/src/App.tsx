@@ -5,6 +5,7 @@ import CompetitionPage from './pages/CompetitionPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import NavBar from './components/NavBar';
 import DatasetDetailPage from './pages/DatasetDetailPage';
+import NewDatasetPage from './pages/NewDatasetPage';
 
 function App() {
   return (
@@ -16,6 +17,7 @@ function App() {
           <Route path="/competitions" element={<CompetitionPage />} />
           <Route path="/datasets" element={<DatasetPage />} />
           <Route path="/datasets/:id" element={<DatasetDetailPage />} />
+          <Route path="/datasets/new" element={<NewDatasetPage />} />
           <Route path="/leaderboards" element={<LeaderboardPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
