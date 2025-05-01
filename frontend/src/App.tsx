@@ -4,11 +4,13 @@ import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-d
 import CompetitionPage from './pages/CompetitionPage';
 import LeaderboardPage from './pages/LeaderboardPage';
 import NavBar from './components/NavBar';
+import AuthenticationPage from './pages/AuthenticationPage';
 import DatasetDetailPage from './pages/DatasetDetailPage';
 import NewDatasetPage from './pages/NewDatasetPage';
 
 function App() {
   return (
+
     <Router>
       <NavBar /> 
       <div className="max-w-screen-xl mx-auto p-6 mt-30">
@@ -19,6 +21,7 @@ function App() {
           <Route path="/datasets/:id" element={<DatasetDetailPage />} />
           <Route path="/datasets/new" element={<NewDatasetPage />} />
           <Route path="/leaderboards" element={<LeaderboardPage />} />
+          <Route path="/authentication" element={<AuthenticationPage />} />
           <Route path="*" element={<Navigate to="/" replace />} />
         </Routes>
       </div>
