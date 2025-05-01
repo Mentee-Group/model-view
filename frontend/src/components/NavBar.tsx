@@ -49,12 +49,16 @@ function NavBar() {
           </NavLink>
         </div>
         <div className="space-x-6">
+        <NavLink to="/authentication?mode=signin">
           <button className="px-4 py-2 text-gray-600 hover:text-gray-800 rounded hover:bg-sky-100/70 hover:shadow-sm shadow-none transition cursor-pointer">
             Sign In
           </button>
+        </NavLink>
+        <NavLink to="/authentication?mode=register">
           <button className="bg-sky-900 text-white px-4 py-2 rounded hover:bg-sky-800 hover:shadow-md shadow-none transition cursor-pointer">
             Register
           </button>
+        </NavLink>
         </div>
       </div>
     </nav>
