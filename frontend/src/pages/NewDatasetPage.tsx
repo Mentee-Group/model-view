@@ -4,7 +4,6 @@ import { Link, useNavigate } from "react-router-dom";
 
 function NewDatasetPage() {
   const navigate = useNavigate();
-
   const [topics, setTopics] = useState<string[]>([]);
   const [problemStatements, setProblemStatements] = useState<string[]>([]);
 
