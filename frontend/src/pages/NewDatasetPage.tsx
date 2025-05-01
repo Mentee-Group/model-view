@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { ArrowLeft, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -38,16 +38,6 @@ function NewDatasetPage() {
 
   return (
     <div className="py-8 mb-12">
-      <div className='mb-6'>
-        <Link
-          to="/datasets"
-          className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-700 text-sm font-medium mb-12 group transition-colors duration-200"
-        >
-          <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-          <span>Back to All Datasets</span>
-        </Link>
-      </div>
-
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create Dataset</h1>
 
@@ -125,7 +115,7 @@ function NewDatasetPage() {
             </label>
             <div className="cursor-pointer">
               <FilePond
-                allowMultiple={false}
+                allowMultiple={true}
                 acceptedFileTypes={['text/csv', 'application/json', 'application/zip']}
                 labelIdle='Drag & Drop your file or <span class="filepond--label-action">Browse</span>'
                 className="mt-2 cursor-pointer"
@@ -173,6 +163,12 @@ function NewDatasetPage() {
                     >
                       Create & View
                     </DropdownMenu.Item>
+                    {/* <DropdownMenu.Item
+                      onSelect={() => handleSubmit(true)}
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      Preview
+                    </DropdownMenu.Item> */}
                   </DropdownMenu.Content>
                 </DropdownMenu.Portal>
               </div>
