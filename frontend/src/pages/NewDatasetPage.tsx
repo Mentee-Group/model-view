@@ -131,7 +131,7 @@ function NewDatasetPage() {
             >
               Cancel
             </Link>
-            <DropdownMenu.Root>
+            <DropdownMenu.Root modal={false}>
               <div className="inline-flex relative">
                 <button
                   onClick={() => handleSubmit(false)}
