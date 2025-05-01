@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react';
-import { useSearchParams, Link } from 'react-router-dom';
+import { useSearchParams, Link} from 'react-router-dom';
 
 
 function AuthenticationPage() {
@@ -12,6 +12,7 @@ function AuthenticationPage() {
         if (mode === 'register') {
             setIsSignIn(false);
             setIsSignInButtonHidden(true); // Optionally hide the sign-in button on initial register view
+
         } else {
             setIsSignIn(true);
             setIsSignInButtonHidden(false); // Optionally show the sign-in button on initial sign-in view
@@ -27,7 +28,7 @@ function AuthenticationPage() {
                 <div className="border-t my-4"></div>
 
                 {/* Toggle Buttons for Sign In and Register */}
-                <div className="flex justify-around mb-6">
+                <div className="flex justify-around mb-6" id="signInSectionToggle">
                     {!isSignInButtonHidden && (
                         <button
                             className={`text-lg font-semibold py-2 px-4 ${
@@ -40,6 +41,7 @@ function AuthenticationPage() {
                                 const newParams = new URLSearchParams(searchParams);
                                 newParams.set('mode', 'signin');
                                 window.history.pushState({}, '', `/authentication?${newParams.toString()}`);
+
                             }}
                         >
                             Sign In
@@ -65,7 +67,7 @@ function AuthenticationPage() {
 
                 {/* Social Login Buttons (conditionally rendered based on isSignIn) */}
                 {isSignIn ? (
-                    <div className="flex flex-col gap-2">
+                    <div className="flex flex-col gap-2" id="signInSection">
                         <button className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-green-300">Sign in with Email</button>
                         <button className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-red-300">Sign in with Google</button>
                         <button className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-blue-300">Sign in with Facebook</button>
@@ -82,17 +84,17 @@ function AuthenticationPage() {
                                className="p-2 border border-black-300 rounded mb-3" required/>
                         <label htmlFor="password" className="text-black-700 font-semibold mb-1">Password</label>
                         <input type="password" id="password" placeholder="***********"
-                               className="p-2 border border-gray-300 rounded mb-3" required/>
+                               className="p-2 border border-gray-300 rounded mb-6" required/>
                         <div className="flex flex-col gap-10">
                             <button
-                                className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-purple-300">Register
+                                className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-purple-300 mb-4">Register
                             </button>
                         </div>
-                            <div className="flex flex-col gap-15">
-                                <p className="text-center text-md text-gray-600 font-semibold mb-6">
-                                    If you need to sign-in click <Link to="/authentication?mode=signin" className="text-sky-900 hover:underline">here</Link>.
+                                <p className="text-center text-md text-gray-600 font-semibold mb-2">
+                                    If you need to sign-in click <Link to='#signInSectionToggle'
+                                                                       className="text-sky-900 hover:underline"
+                                                                        >here</Link>.
                                 </p>
-                            </div>
                     </form>
                     )}
             </div>
