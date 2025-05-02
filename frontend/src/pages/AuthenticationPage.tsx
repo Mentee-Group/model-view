@@ -31,7 +31,7 @@ function AuthenticationPage() {
                 <div className="flex justify-around mb-6" id="signInSectionToggle">
                     {!isSignInButtonHidden && (
                         <button
-                            className={`text-lg font-semibold py-2 px-4 ${
+                            className={`text-lg font-semibold py-2 px-4 cursor-pointer ${
                                 isSignIn ? "border-b-2 border-gray-300 text-gray-600" : "text-black-500"
                             }`}
                             onClick={() => {
@@ -49,7 +49,7 @@ function AuthenticationPage() {
                     )}
 
                     <button
-                        className={`text-lg font-semibold py-2 px-4 ${
+                        className={`text-lg font-semibold py-2 px-4 cursor-pointer ${
                             !isSignIn ? "border-b-2 border-gray-600 text-gray-600" : "text-gray-500"
                         }`}
                         onClick={() => {
@@ -81,7 +81,7 @@ function AuthenticationPage() {
                                className="p-2 border border-gray-300 rounded mb-3" required/>
                         <label htmlFor="email" className="text-black-700 font-semibold mb-1">Email</label>
                         <input type="email" id="email" placeholder="email@gmail.com"
-                               className="p-2 border border-black-300 rounded mb-3" required/>
+                               className="p-2 border border-gray-300 rounded mb-3" required/>
                         <label htmlFor="password" className="text-black-700 font-semibold mb-1">Password</label>
                         <input type="password" id="password" placeholder="***********"
                                className="p-2 border border-gray-300 rounded mb-6" required/>

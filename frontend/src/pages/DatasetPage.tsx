@@ -75,7 +75,7 @@ function DatasetPage() {
                 </div>
               </div>
 
-              <DropdownMenu.Root>
+              <DropdownMenu.Root modal={false}>
                 <DropdownMenu.Trigger asChild>
                   <button
                     onClick={(e) => e.stopPropagation()}

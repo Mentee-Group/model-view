@@ -1,5 +1,5 @@
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { ArrowLeft, ChevronDown } from 'lucide-react';
+import { ChevronDown } from 'lucide-react';
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { FilePond, registerPlugin } from 'react-filepond';
@@ -20,10 +20,18 @@ function NewDatasetPage() {
     }
   };
 
+  const handleRemoveTopic = (index: number) => {
+    setTopics((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleAddProblemStatement = (statement: string) => {
     if (statement) {
       setProblemStatements([...problemStatements, statement]);
     }
+  };
+
+  const handleRemoveProblemStatement = (index: number) => {
+    setProblemStatements((prev) => prev.filter((_, i) => i !== index));
   };
 
   // Later we’ll replace with real submit logic
@@ -38,16 +46,6 @@ function NewDatasetPage() {
 
   return (
     <div className="py-8 mb-12">
-      <div className='mb-6'>
-        <Link
-          to="/datasets"
-          className="inline-flex items-center gap-1 text-sky-600 hover:text-sky-700 text-sm font-medium mb-12 group transition-colors duration-200"
-        >
-          <ArrowLeft className="w-4 h-4 transition-transform duration-200 group-hover:-translate-x-1" />
-          <span>Back to All Datasets</span>
-        </Link>
-      </div>
-
       <div className="max-w-3xl mx-auto">
         <h1 className="text-3xl font-bold mb-8">Create Dataset</h1>
 
@@ -83,7 +81,19 @@ function NewDatasetPage() {
             />
             <div className="flex flex-wrap gap-2 mt-2">
               {topics.map((topic, idx) => (
-                <span key={idx} className="bg-sky-100 text-sky-700 px-2 py-1 rounded text-sm">{topic}</span>
+                <span
+                  key={idx}
+                  className="bg-sky-100 text-sky-700 px-2 py-1 rounded text-sm flex items-center gap-1"
+                >
+                  {topic}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTopic(idx)}
+                    className="text-sky-500 hover:text-sky-700 focus:outline-none cursor-pointer"
+                  >
+                    &times;
+                  </button>
+                </span>
               ))}
             </div>
           </div>
@@ -112,11 +122,24 @@ function NewDatasetPage() {
                 }
               }}
             />
-            <ul className="list-disc pl-5 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               {problemStatements.map((statement, idx) => (
-                <li key={idx} className="text-sm">{statement}</li>
+                <span
+                  key={idx}
+                  className="bg-slate-100 text-slate-800 px-3 py-1 rounded text-sm flex items-center gap-1"
+                >
+                  {statement}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveProblemStatement(idx)}
+                    className="text-slate-500 hover:text-slate-700 focus:outline-none cursor-pointer"
+                    aria-label="Remove statement"
+                  >
+                    &times;
+                  </button>
+                </span>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className="mb-8">
@@ -125,7 +148,7 @@ function NewDatasetPage() {
             </label>
             <div className="cursor-pointer">
               <FilePond
-                allowMultiple={false}
+                allowMultiple={true}
                 acceptedFileTypes={['text/csv', 'application/json', 'application/zip']}
                 labelIdle='Drag & Drop your file or <span class="filepond--label-action">Browse</span>'
                 className="mt-2 cursor-pointer"
@@ -137,11 +160,11 @@ function NewDatasetPage() {
           <div className="flex justify-end gap-3 mb-8">
             <Link
               to="/datasets"
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition-colors"
+              className="px-6 py-2 border border-gray-300 text-white rounded bg-gray-600 hover:bg-gray-700 transition-colors"
             >
               Cancel
             </Link>
-            <DropdownMenu.Root>
+            <DropdownMenu.Root modal={false}>
               <div className="inline-flex relative">
                 <button
                   onClick={() => handleSubmit(false)}
@@ -173,6 +196,12 @@ function NewDatasetPage() {
                     >
                       Create & View
                     </DropdownMenu.Item>
+                    {/* <DropdownMenu.Item
+                      onSelect={() => handleSubmit(true)}
+                      className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
+                    >
+                      Preview
+                    </DropdownMenu.Item> */}
                   </DropdownMenu.Content>
                 </DropdownMenu.Portal>
               </div>
