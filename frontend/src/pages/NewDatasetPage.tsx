@@ -20,10 +20,18 @@ function NewDatasetPage() {
     }
   };
 
+  const handleRemoveTopic = (index: number) => {
+    setTopics((prev) => prev.filter((_, i) => i !== index));
+  };
+
   const handleAddProblemStatement = (statement: string) => {
     if (statement) {
       setProblemStatements([...problemStatements, statement]);
     }
+  };
+
+  const handleRemoveProblemStatement = (index: number) => {
+    setProblemStatements((prev) => prev.filter((_, i) => i !== index));
   };
 
   // Later we’ll replace with real submit logic
@@ -73,7 +81,19 @@ function NewDatasetPage() {
             />
             <div className="flex flex-wrap gap-2 mt-2">
               {topics.map((topic, idx) => (
-                <span key={idx} className="bg-sky-100 text-sky-700 px-2 py-1 rounded text-sm">{topic}</span>
+                <span
+                  key={idx}
+                  className="bg-sky-100 text-sky-700 px-2 py-1 rounded text-sm flex items-center gap-1"
+                >
+                  {topic}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveTopic(idx)}
+                    className="text-sky-500 hover:text-sky-700 focus:outline-none cursor-pointer"
+                  >
+                    &times;
+                  </button>
+                </span>
               ))}
             </div>
           </div>
@@ -102,11 +122,24 @@ function NewDatasetPage() {
                 }
               }}
             />
-            <ul className="list-disc pl-5 mt-2">
+            <div className="flex flex-wrap gap-2 mt-2">
               {problemStatements.map((statement, idx) => (
-                <li key={idx} className="text-sm">{statement}</li>
+                <span
+                  key={idx}
+                  className="bg-slate-100 text-slate-800 px-3 py-1 rounded-full text-sm flex items-center gap-1"
+                >
+                  {statement}
+                  <button
+                    type="button"
+                    onClick={() => handleRemoveProblemStatement(idx)}
+                    className="text-slate-500 hover:text-slate-700 focus:outline-none cursor-pointer"
+                    aria-label="Remove statement"
+                  >
+                    &times;
+                  </button>
+                </span>
               ))}
-            </ul>
+            </div>
           </div>
 
           <div className="mb-8">
@@ -127,7 +160,7 @@ function NewDatasetPage() {
           <div className="flex justify-end gap-3 mb-8">
             <Link
               to="/datasets"
-              className="px-6 py-2 border border-gray-300 text-gray-700 rounded hover:bg-gray-100 transition-colors"
+              className="px-6 py-2 border border-gray-300 text-white rounded bg-gray-600 hover:bg-gray-700 transition-colors"
             >
               Cancel
             </Link>
