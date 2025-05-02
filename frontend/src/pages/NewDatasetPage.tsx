@@ -126,7 +126,7 @@ function NewDatasetPage() {
               {problemStatements.map((statement, idx) => (
                 <span
                   key={idx}
-                  className="bg-slate-100 text-slate-800 px-3 py-1 rounded-full text-sm flex items-center gap-1"
+                  className="bg-slate-100 text-slate-800 px-3 py-1 rounded text-sm flex items-center gap-1"
                 >
                   {statement}
                   <button
