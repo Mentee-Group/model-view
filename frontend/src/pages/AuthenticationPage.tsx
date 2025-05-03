@@ -21,7 +21,7 @@ function AuthenticationPage() {
 
     return (
         <div className="flex flex-col items-center justify-center min-h-screen bg-white-100">
-            <div className="bg-white p-8 rounded-lg shadow-md w-80">
+            <div className="bg-white p-8 rounded-lg shadow-md w-80 border border-gray-300">
                 <h1 className="text-3xl font-bold text-center text--800 mb-6">
                     Welcome
                 </h1>

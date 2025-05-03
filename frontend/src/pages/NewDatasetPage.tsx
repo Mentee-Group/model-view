@@ -13,6 +13,7 @@ function NewDatasetPage() {
   const navigate = useNavigate();
   const [topics, setTopics] = useState<string[]>([]);
   const [problemStatements, setProblemStatements] = useState<string[]>([]);
+  const [files, setFiles] = useState<File[]>([]);
 
   const handleAddTopic = (topic: string) => {
     if (topic && !topics.includes(topic)) {
@@ -34,9 +35,32 @@ function NewDatasetPage() {
     setProblemStatements((prev) => prev.filter((_, i) => i !== index));
   };
 
-  // Later we’ll replace with real submit logic
   const handleSubmit = (viewAfterCreate: boolean) => {
-    const newDatasetId = "3";
+    const formElement = document.querySelector("form");
+    if (!formElement) return;
+
+    const formData = new FormData(formElement);
+    const name = formData.get("name")?.toString().trim() || "";
+    const description = formData.get("description")?.toString().trim() || "";
+    const instructions = formData.get("instructions")?.toString().trim() || "";
+    const modelType = formData.get("modelType")?.toString() || "";
+
+    const datasetPayload = {
+      name,
+      description,
+      instructions,
+      modelType,
+      topics,
+      problemStatements,
+      files, 
+    };
+
+    console.log("Submitting dataset:", datasetPayload);
+
+    // TODO: send datasetPayload to backend here
+
+    const newDatasetId = "3"; // Simulate response
+
     if (viewAfterCreate) {
       navigate(`/datasets/${newDatasetId}`);
     } else {
@@ -52,17 +76,17 @@ function NewDatasetPage() {
         <form className="space-y-6">
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">Name<span className="text-red-500">*</span></label>
-            <input type="text" className="w-full border rounded p-2" required />
+            <input type="text" name="name" className="w-full border rounded p-2" required />
           </div>
 
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">Description<span className="text-red-500">*</span></label>
-            <textarea className="w-full border rounded p-2" rows={4} required />
+            <textarea name="description" className="w-full border rounded p-2" rows={4} required />
           </div>
 
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">Instructions</label>
-            <textarea className="w-full border rounded p-2" rows={3} />
+            <textarea name="instructions" className="w-full border rounded p-2" rows={3} />
           </div>
 
           <div className="mb-8">
@@ -100,7 +124,7 @@ function NewDatasetPage() {
 
           <div className="mb-8">
             <label className="block text-sm font-medium mb-2">Suggested Model Types</label>
-            <select className="text-sm w-full border rounded p-2">
+            <select name="modelType" className="text-sm w-full border rounded p-2">
               <option value="">Select a Model Type</option>
               <option value="classification">Classification</option>
               <option value="regression">Regression</option>
@@ -148,6 +172,12 @@ function NewDatasetPage() {
             </label>
             <div className="cursor-pointer">
               <FilePond
+                files={files}
+                onupdatefiles={(fileItems) => {
+                  const fileList = fileItems.map(fileItem => fileItem.file);
+                  const validFiles = fileList.filter((file): file is File => file instanceof File);
+                  setFiles(validFiles);
+                }}
                 allowMultiple={true}
                 acceptedFileTypes={['text/csv', 'application/json', 'application/zip']}
                 labelIdle='Drag & Drop your file or <span class="filepond--label-action">Browse</span>'
