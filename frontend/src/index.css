@@ -25,3 +25,27 @@
     font-family: var(--font-roboto);
   }
 }
+
+@layer components {
+  .filepond--root {
+    border: 2px dotted #ccc;
+    border-radius: 0.5rem;
+    padding: 1rem;
+    margin-bottom: 0.5rem;
+    background-color: #fafafa; 
+  }
+
+  .filepond--panel-root {
+    background-color: transparent !important;
+    box-shadow: none !important;
+    border: none !important;
+  }
+
+  .filepond--drop-label {
+    padding: 1rem 0;
+  }
+
+  .filepond--list {
+    margin-top: 1rem;
+  }
+}
