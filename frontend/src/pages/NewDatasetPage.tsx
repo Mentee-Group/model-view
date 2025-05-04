@@ -6,6 +6,7 @@ import { FilePond, registerPlugin } from 'react-filepond';
 import 'filepond/dist/filepond.min.css';
 import FilePondPluginFileValidateType from 'filepond-plugin-file-validate-type';
 import FilePondPluginFileEncode from 'filepond-plugin-file-encode';
+import { uploadFile } from '@/services/DatasetService';
 
 registerPlugin(FilePondPluginFileValidateType, FilePondPluginFileEncode);
 
@@ -35,7 +36,7 @@ function NewDatasetPage() {
     setProblemStatements((prev) => prev.filter((_, i) => i !== index));
   };
 
-  const handleSubmit = (viewAfterCreate: boolean) => {
+  const handleSubmit = async(viewAfterCreate: boolean) => {
     const formElement = document.querySelector("form");
     if (!formElement) return;
 
@@ -45,26 +46,30 @@ function NewDatasetPage() {
     const instructions = formData.get("instructions")?.toString().trim() || "";
     const modelType = formData.get("modelType")?.toString() || "";
 
-    const datasetPayload = {
-      name,
-      description,
-      instructions,
-      modelType,
-      topics,
-      problemStatements,
-      files, 
-    };
+    try {
+      const uploadResponse = await uploadFile(files);
+      console.log("Upload complete with response:", uploadResponse);
 
-    console.log("Submitting dataset:", datasetPayload);
+      const payload = {
+        name,
+        description,
+        instructions,
+        modelType,
+        topics,
+        problemStatements,
+      };
 
-    // TODO: send datasetPayload to backend here
+    console.log("Submitting dataset:", payload);
 
-    const newDatasetId = "3"; // Simulate response
-
-    if (viewAfterCreate) {
-      navigate(`/datasets/${newDatasetId}`);
-    } else {
-      navigate("/datasets");
+      // TODO: Replace with actual dataset ID from backend
+      const newDatasetId = "3";
+      if (viewAfterCreate) {
+        navigate(`/datasets/${newDatasetId}`);
+      } else {
+        navigate("/datasets");
+      }
+    } catch (err) {
+      console.error("Error submitting dataset:", err);
     }
   };
 
@@ -197,7 +202,7 @@ function NewDatasetPage() {
             <DropdownMenu.Root modal={false}>
               <div className="inline-flex relative">
                 <button
-                  onClick={() => handleSubmit(false)}
+                  onClick={(e) => { e.preventDefault(); handleSubmit(false) }}
                   className="px-6 py-2 bg-sky-600 text-white rounded-l hover:bg-sky-700 focus:outline-none cursor-pointer"
                 >
                   Create

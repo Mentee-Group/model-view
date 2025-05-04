@@ -1,6 +1,10 @@
+import os
 from flask import Blueprint, jsonify, request
 
 api_bp = Blueprint('api', __name__, url_prefix='/api/v1')
+
+UPLOAD_FOLDER = os.path.join(os.getcwd(), 'uploads')
+os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 
 @api_bp.route('/health', methods=['GET'])
 def health():
@@ -14,19 +18,26 @@ def health():
 @api_bp.route('/upload-dataset', methods=['POST'])
 def upload_dataset():
     if 'file' not in request.files:
-        return jsonify({'error': 'No file part in the request'}), 400
+        return jsonify({'error': 'No files found in request'}), 400
 
-    file = request.files['file']
+    files = request.files.getlist('file')
 
-    if file.filename == '':
-        return jsonify({'error': 'No file selected for uploading'}), 400
+    if not files:
+        return jsonify({'error': 'No files selected'}), 400
 
-    if file:
-        # For now, just return the filename as confirmation
-        return jsonify({'message': f'File {file.filename} received successfully.'}), 200
+    saved_files = []
 
-    return jsonify({'error': 'File upload failed'}), 500
+    for file in files:
+        if file.filename == '':
+            continue
+        save_path = os.path.join(UPLOAD_FOLDER, file.filename)
+        file.save(save_path)
+        saved_files.append(file.filename)
 
+    if not saved_files:
+        return jsonify({'error': 'No valid files uploaded'}), 400
+
+    return jsonify({'message': 'Files uploaded successfully', 'files': saved_files}), 200
 
 @api_bp.route('/upload-json', methods=['POST'])
 def upload_json():

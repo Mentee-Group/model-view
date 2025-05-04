@@ -39,6 +39,7 @@ dist/
 # Database files
 *.db
 *.sqlite3
+uploads/
 
 # Jupyter notebook checkpoints
 .ipynb_checkpoints/
