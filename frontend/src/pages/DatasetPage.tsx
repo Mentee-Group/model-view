@@ -1,7 +1,8 @@
 import { MoreHorizontal, Plus } from 'lucide-react';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
+import { toast } from 'sonner';
 
 type Dataset = {
   id: number;
@@ -35,9 +36,29 @@ function handleMenuClick(callback: () => void) {
   };
 }
 
+function useMounted() {
+  const [mounted, setMounted] = useState(false);
+  useEffect(() => {
+    setMounted(true);
+  }, []);
+  return mounted;
+}
+
 function DatasetPage() {
+  const location = useLocation();
   const navigate = useNavigate();
   const [expandedId, setExpandedId] = useState<number | null>(null);
+  const mounted = useMounted();
+
+  useEffect(() => {
+    if (!mounted) return;
+    if (location.state?.showSuccessToast) {
+      const id = toast.success('Dataset uploaded successfully!');
+      return () => {
+        toast.dismiss(id);
+      };
+    }
+  }, [mounted, location.state?.showSuccessToast]);
 
   const toggleExpand = (id: number) => {
     setExpandedId(expandedId === id ? null : id);
