@@ -7,6 +7,7 @@ import NavBar from '@/components/NavBar';
 import AuthenticationPage from './pages/AuthenticationPage';
 import DatasetDetailPage from './pages/DatasetDetailPage';
 import NewDatasetPage from './pages/NewDatasetPage';
+import { Toaster } from 'sonner';
 
 function App() {
   return (
@@ -14,6 +15,11 @@ function App() {
     <Router>
       <NavBar /> 
       <div className="max-w-screen-xl mx-auto p-6 mt-30">
+        <Toaster richColors position="top-right" toastOptions={{
+          style: {
+            marginTop: '4rem',
+          }
+        }} />
         <Routes>
           <Route path="/" element={<HomePage />} />
           <Route path="/competitions" element={<CompetitionPage />} />

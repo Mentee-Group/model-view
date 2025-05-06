@@ -5,6 +5,7 @@ import { TagInput } from '@/components/TagInput';
 import { FormField } from '@/components/FormField';
 import { FileUploader } from '@/components/FileUploader';
 import { ActionButtons } from '@/components/ActionsButtons';
+import { toast } from 'sonner';
 
 function NewDatasetPage() {
   const navigate = useNavigate();
@@ -34,9 +35,10 @@ function NewDatasetPage() {
       // TODO: Replace with actual dataset ID from backend
       const newDatasetId = "3";
       
-      navigate(viewAfterCreate ? `/datasets/${newDatasetId}` : "/datasets");
+      navigate(viewAfterCreate ? `/datasets/${newDatasetId}` : "/datasets", { state: { showSuccessToast: true } });
     } catch (err) {
       console.error("Error submitting dataset:", err);
+      toast.error("Failed to submit dataset. Please try again.");
     }
   };
 
