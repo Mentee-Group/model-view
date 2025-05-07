@@ -34,8 +34,9 @@ function NewDatasetPage() {
 
       // TODO: Replace with actual dataset ID from backend
       const newDatasetId = "3";
-      
-      navigate(viewAfterCreate ? `/datasets/${newDatasetId}` : "/datasets", { state: { showSuccessToast: true } });
+      navigate(viewAfterCreate ? `/datasets/${newDatasetId}` : "/datasets", {
+        state: { showSuccessToast: true, newDataset: datasetData },
+      });
     } catch (err) {
       console.error("Error submitting dataset:", err);
       toast.error("Failed to submit dataset. Please try again.");

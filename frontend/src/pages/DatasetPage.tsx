@@ -10,6 +10,10 @@ type Dataset = {
   description: string;
   creator: string;
   createdAt: string;
+  instructions?: string;
+  modelType?: string;
+  topics?: string[];
+  problemStatements?: string[];
 };
 
 const datasets: Dataset[] = [
@@ -50,6 +54,11 @@ function DatasetPage() {
   const [expandedId, setExpandedId] = useState<number | null>(null);
   const mounted = useMounted();
 
+  const newDataset = location.state?.newDataset as Dataset | undefined;
+  const allDatasets = newDataset
+  ? [{ ...newDataset, id: 3, createdAt: new Date().toISOString(), creator: "Jack O'Neill" }, ...datasets]
+  : datasets;
+
   useEffect(() => {
     if (!mounted) return;
     if (location.state?.showSuccessToast) {
@@ -78,7 +87,7 @@ function DatasetPage() {
       </div>
 
       <div>
-        {datasets.map((dataset) => (
+        {allDatasets.map((dataset) => (
           <div
             key={dataset.id}
             className="cursor-pointer hover:bg-gray-50 transition border-b border-gray-200 bg-white relative"
