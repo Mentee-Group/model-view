@@ -6,6 +6,8 @@ import { FormField } from '@/components/FormField';
 import { FileUploader } from '@/components/FileUploader';
 import { ActionButtons } from '@/components/ActionsButtons';
 import { toast } from 'sonner';
+import { DatasetUploadInput } from '@/types/DatasetTypes';
+import { validateDatasetData } from '@/utils/ValidateDatasetData';
 
 function NewDatasetPage() {
   const navigate = useNavigate();
@@ -18,7 +20,8 @@ function NewDatasetPage() {
     if (!formElement) return;
 
     const formData = new FormData(formElement);
-    const datasetData = {
+
+    const datasetData: DatasetUploadInput = {
       name: formData.get("name")?.toString().trim() || "",
       description: formData.get("description")?.toString().trim() || "",
       instructions: formData.get("instructions")?.toString().trim() || "",
@@ -26,6 +29,12 @@ function NewDatasetPage() {
       topics,
       problemStatements,
     };
+
+    const validation = validateDatasetData(datasetData, files.length > 0);
+    if (!validation.isValid) {
+      toast.error(validation.errorMessage);
+      return;
+    }
 
     try {
       const uploadResponse = await uploadFile(files);
@@ -39,7 +48,7 @@ function NewDatasetPage() {
       });
     } catch (err) {
       console.error("Error submitting dataset:", err);
-      toast.error("Failed to submit dataset. Please try again.");
+      toast.error("An unexpected error occurred. Please try again.");
     }
   };
 
