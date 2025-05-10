@@ -1,57 +1,35 @@
 import { ArrowLeft } from 'lucide-react';
 import { Link, useParams } from 'react-router-dom';
 import { AgGridReact } from 'ag-grid-react';
-import 'ag-grid-community/styles/ag-grid.css';
-import 'ag-grid-community/styles/ag-theme-alpine.css';
-import { useMemo } from 'react';
-import { AllCommunityModule, ColDef, ModuleRegistry } from 'ag-grid-community';
+import { useEffect, useState } from 'react';
+import { AllCommunityModule, ColDef, ModuleRegistry, themeAlpine, colorSchemeLightCold } from 'ag-grid-community';
+import { DataRow, fetchDataset } from '@/services/DatasetService';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
-
-type Car = {
-  make: string;
-  model: string;
-  price: number;
-};
+const theme = themeAlpine.withPart(colorSchemeLightCold);
 
 function DatasetDetailPage() {
+  const [columnDefs, setColumnDefs] = useState<ColDef[]>([]);
+  const [rowData, setRowData] = useState<DataRow[]>([]);
   const { id } = useParams<{ id: string }>();
 
-  const columnDefs = useMemo<ColDef<Car>[]>(() => [
-    { headerName: "Make", field: "make" },
-    { headerName: "Model", field: "model" },
-    { headerName: "Price", field: "price" },
-    { headerName: "Make", field: "make" },
-    { headerName: "Model", field: "model" },
-    { headerName: "Price", field: "price" }
-  ], []);
+  useEffect(() => {
+    async function loadData() {
+      if (!id) {
+        return;
+      }
 
-  const rowData = useMemo<Car[]>(() => [
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 },
-    { make: "Toyota", model: "Celica", price: 35000 },
-    { make: "Ford", model: "Mondeo", price: 32000 },
-    { make: "Porsche", model: "Boxster", price: 72000 }
-  ], []);
+      try {
+        const response = await fetchDataset();
+        setColumnDefs(response.columnDefs);
+        setRowData(response.rowData);
+      } catch (err) {
+        console.error(err);
+      }
+    }
+
+    loadData();
+  }, [id]);
 
   return (
     <div className="py-8 px-4">
@@ -68,11 +46,21 @@ function DatasetDetailPage() {
       <h1 className="text-3xl font-bold mb-4">Dataset #{id}</h1>
       <p className="mb-6">This is where we'll load the table view for dataset {id}!</p>
 
-      <div className="ag-theme-alpine">
-        <AgGridReact<Car>
+      <div style={{ height: '500px' }}>
+        <AgGridReact
+          theme={theme}
           rowData={rowData}
           columnDefs={columnDefs}
-          domLayout="autoHeight"
+          pagination={true}
+          paginationPageSize={20}
+          domLayout="normal"
+          defaultColDef={{
+            flex: 1,
+            minWidth: 100,
+            filter: true,
+            sortable: true,
+            resizable: true,
+          }}
         />
       </div>
     </div>
