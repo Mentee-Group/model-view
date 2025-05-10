@@ -3,18 +3,7 @@ import { useEffect, useState } from 'react';
 import * as DropdownMenu from '@radix-ui/react-dropdown-menu';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { toast } from 'sonner';
-
-type Dataset = {
-  id: number;
-  name: string;
-  description: string;
-  creator: string;
-  createdAt: string;
-  instructions?: string;
-  modelType?: string;
-  topics?: string[];
-  problemStatements?: string[];
-};
+import { Dataset } from '@/types/DatasetTypes';
 
 const datasets: Dataset[] = [
   {

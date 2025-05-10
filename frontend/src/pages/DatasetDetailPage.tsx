@@ -32,7 +32,7 @@ function DatasetDetailPage() {
   }, [id]);
 
   return (
-    <div className="py-8">
+    <div className="py-8 px-4">
       <div className="mb-6">
         <Link
           to="/datasets"
