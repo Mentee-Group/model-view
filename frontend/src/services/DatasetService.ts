@@ -23,14 +23,21 @@ export interface DataServiceResponse<T> {
   rowData: T[];
 }
 
-export const fetchDataset = async <T extends DataRow>(): Promise<DataServiceResponse<T>> => {
+export const fetchDataset = async <T extends DataRow>(datasetName?: string): Promise<DataServiceResponse<T>> => {
   try {
-    const jsonData = await getMockDataset();
-    
+    let jsonData;
+
+    if (datasetName) {
+      const response = await axios.get(`${BASE_URL}/get-dataset/${datasetName}`);
+      jsonData = response.data;
+    } else {
+      jsonData = await getMockDataset();
+    }
+
     if (!jsonData || !jsonData.data || !Array.isArray(jsonData.data) || jsonData.data.length === 0) {
       throw new Error('Invalid dataset format or empty dataset');
     }
-    
+
     const firstRow = jsonData.data[0];
     const columnDefs = Object.keys(firstRow).map(key => ({
       headerName: key,
@@ -39,7 +46,7 @@ export const fetchDataset = async <T extends DataRow>(): Promise<DataServiceResp
       filter: true,
       sortable: true,
     }));
-    
+
     return {
       columnDefs,
       rowData: jsonData.data as T[],
@@ -51,7 +58,7 @@ export const fetchDataset = async <T extends DataRow>(): Promise<DataServiceResp
       rowData: [],
     };
   }
-}
+};
 
 function getMockDataset(): Promise<{ data: DataRow[] }> {
   const weatherData = {
