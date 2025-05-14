@@ -1,17 +1,20 @@
 import { ArrowLeft } from 'lucide-react';
-import { Link, useParams } from 'react-router-dom';
+import { Link, useLocation, useParams } from 'react-router-dom';
 import { AgGridReact } from 'ag-grid-react';
 import { useEffect, useState } from 'react';
 import { AllCommunityModule, ColDef, ModuleRegistry, themeAlpine, colorSchemeLightCold } from 'ag-grid-community';
 import { DataRow, fetchDataset } from '@/services/DatasetService';
+import { Dataset } from '@/types/DatasetTypes';
 
 ModuleRegistry.registerModules([AllCommunityModule]);
 const theme = themeAlpine.withPart(colorSchemeLightCold);
 
 function DatasetDetailPage() {
+  const location = useLocation();
   const [columnDefs, setColumnDefs] = useState<ColDef[]>([]);
   const [rowData, setRowData] = useState<DataRow[]>([]);
   const { id } = useParams<{ id: string }>();
+  const dataset = location.state?.dataset as Dataset | undefined;
 
   useEffect(() => {
     async function loadData() {
@@ -20,7 +23,7 @@ function DatasetDetailPage() {
       }
 
       try {
-        const response = await fetchDataset();
+        const response = await fetchDataset(dataset?.fileName);
         setColumnDefs(response.columnDefs);
         setRowData(response.rowData);
       } catch (err) {
@@ -29,7 +32,7 @@ function DatasetDetailPage() {
     }
 
     loadData();
-  }, [id]);
+  }, [id, dataset?.fileName]);
 
   return (
     <div className="py-8">

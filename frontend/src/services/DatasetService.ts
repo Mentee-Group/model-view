@@ -26,10 +26,11 @@ export interface DataServiceResponse<T> {
 export const fetchDataset = async <T extends DataRow>(datasetName?: string): Promise<DataServiceResponse<T>> => {
   try {
     let jsonData;
+    console.log("logging datasetName: " + datasetName)
 
     if (datasetName) {
       const response = await axios.get(`${BASE_URL}/get-dataset/${datasetName}`);
-      jsonData = response.data;
+      jsonData = { data: response.data };
     } else {
       jsonData = await getMockDataset();
     }

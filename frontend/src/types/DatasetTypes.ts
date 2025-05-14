@@ -17,4 +17,5 @@ export type Dataset = {
   modelType?: string;
   topics?: string[];
   problemStatements?: string[];
+  fileName?: string;
 };

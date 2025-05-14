@@ -45,8 +45,8 @@ function DatasetPage() {
 
   const newDataset = location.state?.newDataset as Dataset | undefined;
   const allDatasets = newDataset
-  ? [{ ...newDataset, id: 3, createdAt: new Date().toISOString(), creator: "Jack O'Neill" }, ...datasets]
-  : datasets;
+    ? [newDataset, ...datasets]
+    : datasets;
 
   useEffect(() => {
     if (!mounted) return;
@@ -112,8 +112,13 @@ function DatasetPage() {
                   <DropdownMenu.Item asChild>
                     <div
                       onClick={handleMenuClick(() => {
-                        navigate(`/datasets/${dataset.id}`);
+                        navigate(`/datasets/${dataset.id}`, {
+                          state: { dataset },
+                        });
                       })}
+                      // onClick={handleMenuClick(() => {
+                      //   navigate(`/datasets/${dataset.id}`);
+                      // })}
                       className="px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 cursor-pointer"
                     >
                       View

@@ -41,10 +41,24 @@ function NewDatasetPage() {
       console.log("Upload complete with response:", uploadResponse);
       console.log("Submitting dataset:", datasetData);
 
+
+      const fullPath = uploadResponse.files?.[0] || "";
+      const baseFileName = fullPath.split(/[/\\]/).pop()?.split('.')[0] || "";
+      console.log(baseFileName);
+
       // TODO: Replace with actual dataset ID from backend
       const newDatasetId = "3";
       navigate(viewAfterCreate ? `/datasets/${newDatasetId}` : "/datasets", {
-        state: { showSuccessToast: true, newDataset: datasetData },
+        state: {
+          showSuccessToast: true,
+          newDataset: {
+            ...datasetData,
+            id: Number(newDatasetId),
+            createdAt: new Date().toISOString(),
+            creator: "Jack O'Neill",
+            fileName: baseFileName, 
+          },
+        },
       });
     } catch (err) {
       console.error("Error submitting dataset:", err);
