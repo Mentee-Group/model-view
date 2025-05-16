@@ -47,7 +47,7 @@ function DatasetDetailPage() {
       </div>
 
       <h1 className="text-3xl font-bold mb-4">Dataset #{id}</h1>
-      <p className="mb-6">This is where we'll load the table view for dataset {id}!</p>
+      <p className="mb-6">{dataset?.description}</p>
 
       <div style={{ height: '500px' }}>
         <AgGridReact
