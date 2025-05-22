@@ -11,7 +11,7 @@ function AuthenticationPage() {
 
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [name, setName] = useState(''); // Optional: Save display name
+  const [name, setName] = useState(''); 
 
   useEffect(() => {
     const mode = searchParams.get('mode');
@@ -29,7 +29,7 @@ function AuthenticationPage() {
     try {
       await register(email, password);
       toast.success('Registration successful!');
-      navigate('/'); // Redirect after register
+      navigate('/'); 
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message || 'Registration failed');
@@ -43,7 +43,7 @@ function AuthenticationPage() {
     try {
       await login(email, password);
       toast.success('Sign in successful!');
-      navigate('/'); // Redirect after login
+      navigate('/'); 
     } catch (error: unknown) {
       if (error instanceof Error) {
         toast.error(error.message || 'Sign in failed');
