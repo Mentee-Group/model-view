@@ -59,7 +59,6 @@ function AuthenticationPage() {
         <h1 className="text-3xl font-bold text-center text--800 mb-6">Welcome</h1>
         <div className="border-t my-4"></div>
 
-        {/* Toggle Buttons */}
         <div className="flex justify-around mb-6" id="signInSectionToggle">
           {!isSignInButtonHidden && (
             <button
@@ -89,7 +88,6 @@ function AuthenticationPage() {
           </button>
         </div>
 
-        {/* Conditional Rendering */}
         {isSignIn ? (
           <div className="flex flex-col gap-2" id="signInSection">
             <input
@@ -109,7 +107,6 @@ function AuthenticationPage() {
             <button onClick={handleLogin} className="bg-sky-900 text-white py-1 px-6 rounded-full hover:bg-green-300">
               Sign in with Email
             </button>
-            {/* Optional: Add Google/Facebook buttons here later */}
           </div>
         ) : (
           <form className="flex flex-col" onSubmit={handleRegister}>
