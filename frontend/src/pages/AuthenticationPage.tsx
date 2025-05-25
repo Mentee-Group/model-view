@@ -99,7 +99,7 @@ function AuthenticationPage() {
             />
             <input
               type="password"
-              placeholder="Password"
+              placeholder="************"
               className="p-2 border border-gray-300 rounded mb-2"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
